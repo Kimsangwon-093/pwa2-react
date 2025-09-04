@@ -1,0 +1,77 @@
+import { useState } from 'react';
+import './App.css'; // ◀◀ 외부 css파일을 불러올 때 같은 폴더 위치에 같은 이름으로
+
+
+function App() {
+// 자바스크립트 코드 작성영역
+  const title = '갯수를 늘려 보세요';
+
+  const[count, setCount] = useState(0);
+  const incrementCount = () => {
+    setCount((prev) => prev + 1);
+  }
+
+  const decrementCount = () => {
+    setCount((prev) => {
+      if(prev > 0){
+        return prev - 1;
+      }else{
+        return 0;
+      }
+    });
+  }
+
+  const [account, setAccount] = useState('');
+
+  const [userInfo, setUserInfo] = useState({
+    name:'김상원',
+    age: 32,
+    gender: 'M'
+  });
+
+  // 기존 state !== 새 state 이런 경우에만 리렌더링이 발생!
+
+const addAge = () => {
+const copy = {...userInfo};
+copy.age += 1;
+setUserInfo(copy);
+
+}
+  // 조건부 렌더링용
+  const [flg, setFlg] = useState(true);
+  
+  return (
+    // HTML 작성영역
+    <>
+    {count >= 10 && <h1>{count}</h1>}
+
+      {/* 조건부 렌더링 */}
+      <button type="button" onClick={() => { setFlg(!flg) }}>Flg</button>
+      {/* {flg ? <h1>조건부 렌더링</h1> : null} */}
+      {flg && <h1>조건부 렌더링</h1> }
+      <br /><br />
+
+      {/* 조건부 렌더링 여기까지 */}
+      <span>{`${userInfo.name} : ${userInfo.age} : ${userInfo.gender} `}</span>
+      <button type="button" onClick={addAge}>나이 증가</button>
+      <br />
+      <br />
+      <input type="text" 
+      value={account} 
+      onChange={(e) => {setAccount(e.target.value) }}
+      />
+
+      <p>{account}</p>
+
+      <p>{count}</p>
+      <button type="button" onClick={incrementCount}>+</button>
+      <button type="button" onClick={decrementCount}>-</button>
+
+      <h1 class="title" style={{color:'red', fontSize:'3rem'}}>{title}</h1>  
+      {/* <h1 style={titleStyle}>{title}</h1>  */}
+             {/* ▲ JSX형식의 주석 ▲ */}
+    </>
+  )
+}
+export default App;
+// 실행할때 : npm run dev

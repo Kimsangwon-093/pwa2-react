@@ -1,0 +1,29 @@
+import'./App.css';
+
+function App(){
+const items = [
+    {title:'바지', price: 10000},
+    {title:'양말', price: 1000},
+    {title:'티샤스', price: 5000},
+];
+
+  return(
+    <>    
+     <h1>test</h1>
+       <div className="container">
+          {
+            items.map((items, idx) => {
+             return (
+              <div className="item" key={idx}>
+                <h3>{items.title}</h3>
+                <p>{items.price}</p>
+              </div>
+            );
+           })
+          }
+      </div>
+    </>
+  );
+}
+
+export default App;
