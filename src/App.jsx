@@ -1,65 +1,40 @@
-import { useState } from 'react';
-import './App.css'; // ◀◀ 외부 css파일을 불러올 때 같은 폴더 위치에 같은 이름으로
+import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom';
 
+import'./App.css';
 
-function App() {
-// 자바스크립트 코드 작성영역
-  const title = '갯수를 늘려 보세요';
+function App(){
+  // 컴포넌트 내부에서 프로그래밍 방식으로 페이지 이동을 구현
+const navigate = useNavigate();
 
-  const[count, setCount] = useState(0);
-  const incrementCount = () => {
-    setCount((prev) => prev + 1);
-  }
-
-  const decrementCount = () => {
-    setCount((prev) => {
-      if(prev > 0){
-        return prev - 1;
-      }else{
-        return 0;
-      }
-    });
-  }
-
-  const [account, setAccount] = useState('');
-
-  const [userInfo, setUserInfo] = useState({
-    name:'김상원',
-    age: 32,
-    gender: 'M'
-  });
-
-  // 기존 state !== 새 state 이런 경우에만 리렌더링이 발생!
-
-const addAge = () => {
-const copy = {...userInfo};
-copy.age += 1;
-setUserInfo(copy);
-
+const ok = () => {
+  navigate('/ok');
 }
-  return (
-      // HTML 작성영역
-      <>
-      <span>{`${userInfo.name} : ${userInfo.age} : ${userInfo.gender} `}</span>
-      <button type="button" onClick={addAge}>나이 증가</button>
 
+  return(
+    <>
+    <header>
+      <h1>앱</h1>
+      <div className="nav">
+        <Link to={'/list'}>리스트 페이지</Link>
+        <Link to={'/detail'}>상세페이지</Link>
+        <br />
+        <NavLink to={'/list'}>리스트 페이지</NavLink>
+        <NavLink to={'/detail'}>상세페이지</NavLink>
+        <br />
+        <button type="button" onClick={ok}>확인</button>
+      </div>
+    </header>
 
-      <input type="text" 
-      value={account} 
-      onChange={(e) => {setAccount(e.target.value) }}
-      />
+    <main>  
+      {/* 라우터의 자식 컴포너트를 출력 */}
+      <Outlet></Outlet>
+    </main>
 
-      <p>{account}</p>
-
-      <p>{count}</p>
-      <button type="button" onClick={incrementCount}>+</button>
-      <button type="button" onClick={decrementCount}>-</button>
-
-      <h1 class="title" style={{color:'red', fontSize:'3rem'}}>{title}</h1>  
-      {/* <h1 style={titleStyle}>{title}</h1>  */}
-             {/* ▲ JSX형식의 주석 ▲ */}
+    <footer>
+      <p>카피라이트</p>
+    </footer>
     </>
   )
 }
+
 export default App;
-// 실행할때 : npm run dev

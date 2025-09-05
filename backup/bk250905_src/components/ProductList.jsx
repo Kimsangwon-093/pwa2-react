@@ -1,3 +1,5 @@
+import { useState } from 'react';
+import ProductDetail from './ProductDetail.jsx';
 import './ProductList.css';
 
 function ProductList() {
@@ -25,30 +27,30 @@ function ProductList() {
     },
   ];
 
+  const [modalFlg, setModalFlg] = useState(false);
+
+  const[propsProduct, setPropsProduct] = useState({});
+
+  const viewModal = (item) => {
+    setPropsProduct({...item});
+    setModalFlg(true);
+  }
+
   return (
     <>
+    {modalFlg && <ProductDetail product={propsProduct} setModalFlg={setModalFlg}></ProductDetail>}
     <div className="card-container">
       {
         products.map(item => {
           return(
-        <div className="card">
-        <div className="card-img" style={{backgroundImage: `url(https://picsum.photos/id/7/4728/3168)`}}></div>
-        <p className="card-title">{item.title}</p>
-        <p className="card-price">10000</p>
-        </div>
+            <div className="card" key={item.id} onClick={()=>viewModal(item)}>
+              <div className="card-img" style={{backgroundImage: `url('${item.img}')`}}></div>
+              <p className="card-title">{item.title}</p>
+              <p className="card-price">10000</p>
+            </div>
           )
         })
       }
-      <div className="card">
-        <div className="card-img" style={{backgroundImage: `url(https://picsum.photos/id/7/4728/3168)`}}></div>
-        <p className="card-title">바지</p>
-        <p className="card-price">10000</p>
-      </div>
-      <div className="card">
-        <div className="card-img" style={{backgroundImage: `url(https://picsum.photos/id/7/4728/3168)`}}></div>
-        <p className="card-title">바지</p>
-        <p className="card-price">10000</p>
-      </div>
     </div>
     </>
   )
