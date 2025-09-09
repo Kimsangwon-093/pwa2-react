@@ -27,3 +27,15 @@ npm install react-router-dom
 
 
 5. main.jsx에 React Redux <Provider> 추가 (strictMode를 제외한, 최상위 컴포넌트 일 것)
+
+
+6. 사용
+
+<!-- Redux Thunk -->
+
+1. Redux Thunk 설치
+   npm i Redux Thunk
+
+ 2. Redux Thunk 파일 생성
+
+ 3. 해당 slice에 `extraReducers` 추가
